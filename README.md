@@ -1,18 +1,22 @@
 # Wordladder Search Problem
 ## Search, recursion and pattern matching example using Python
 
-The wordladder exerceise is one of those rare programming problems that can be used to illustrate a number of programming concepts with clarify and in a concise mannner.
-The problem can be solved in an elegant and concise manner in order to - in this case tree search.
+The wordladder exerceise is one of those rare problems that can be used to illustrate and explain multiple programming concepts. The problem statement is simple and its solution allows a writer to present various fundamental computer science techniques and structures in a concise manner. 
 
-The problem is quite simple.
+### Problem Statement
 
-    Find the shortest path from a starting word to an end word such that we only change one single letter at each step.
+    Find the shortest path from a begin-word to an end-word such that we only change one single letter at each step.
     
 In other words we need to find the smallest number of transformations such that at every transformation we change only one character. The words used to find the path are given as a list (which represent the dictionary space of available words).
 
-Example:
+### Example
 
-Assuming all these 3 letter words are there in the dictionary provided, it takes minimum 4 transitions to convert word from SAIL to RUIN, i.e.
-SAIL -> MAIL -> MAIN -> RAIN -> RUIN
+Assuming these 3 letter words represent our dictionary  
 
-In a typical solution given often utilize graphs and graph algorithms to solve this problem. However, the solution given here takes a different approach which is easier to understand and more elegant.
+    wordList = ["lot","hat", "hot", "log","dog","pot","dot"]
+
+then it takes a minimum of 5 steps to convert the word hit -> cog 
+ 
+    hit -> hot -> dot -> dog -> cog
+
+Typically, the solution for this problem utilizes graphs and graph algorithms (https://leetcode.com/problems/word-ladder/). However, in our post we utilize a different approach that is both easier to understand and more elegant to program.
