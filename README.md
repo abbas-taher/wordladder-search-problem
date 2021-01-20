@@ -13,7 +13,7 @@ In other words we need to find the smallest number of transformations such that 
 
 Assuming these 3 letter words represent our dictionary  
 
-    wordList = ["lot","hat", "hot", "log","dog","pot","dot"]
+    dictList = ["lot","hat", "hot", "log","dog","pot","dot"]
 
 then it takes a minimum of 5 steps to convert the word hit -> cog 
  
