@@ -72,4 +72,61 @@ The pattern matching method **doMatch** returns all matching characters as '\*' 
 
 So far we have not done any search, so lets add this code to our class which not looks as follows:
 
+    # wordladder_v1.py
+    class WordLadder:
+        def __init__(self, start, end, wordList):
+            self.start = start
+            self.end = end
+            self.wordList = wordList
 
+        def find(self):
+            pathlst = self.ladder(self.start, self.wordList)
+            return (pathlst + [self.end])
+
+        def ladder(self, begin, wordList):
+            pattern = self.doMatch(begin, self.end)
+            if self.counts(pattern):
+                return ([begin])
+            for word in wordList:
+                pattern = self.doMatch(begin, word)
+                if self.counts(pattern):
+                    remain = wordList[:]
+                    remain.remove(word)
+                    pathlst = self.ladder(word, remain)
+                    if pathlst:
+                        return ([begin] + pathlst)
+            return ([])
+
+        def doMatch(self, wordl, wordr):
+            pattern = []
+            for (cl,cr) in zip(wordl,wordr):
+                if cl == cr:
+                    pattern.append('*')
+                else:
+                    pattern.append (cr)
+            return ("".join(pattern))
+
+        def counts(self, pattern):
+            return (len(pattern) - pattern.count('*') == 1)
+
+    dictList = ['hot','log','dog','dot','lot']
+
+    start, end = 'hit','fog'
+    wl = WordLadder(start,end, dictList)
+    print (wl.find())                       # -> ['hit', 'hot', 'dot', 'dog', 'fog']
+
+    wordList = ['lot','hot','dog','dot','log']  
+    wl = WordLadder(start,end, wordList)
+    print (wl.find())                       # -> ['hit', 'hot', 'lot', 'dot', 'dog', 'fog']
+
+
+To execute the code we can just run the wordladder_v1.py program using a call to Python via the command line:
+
+  $ python wordladder_v1.py
+
+This will produce the two lines:
+
+     ['hit', 'hot', 'dot', 'dog', 'fog']
+     ['hit', 'hot', 'lot', 'dot', 'dog', 'fog']
+     
+So why is the difference. If you look curefully you see that the first line was printed when we were using dictList and the other line when we were using the wordList. In both cases the two list contain the same words. However, if you look carefully you see that wordList as changed the order and thus we ended up with a different output. This is normal because the program is not "really" doing any search. It is just scanning the possible solutions and returning the first one it finds.    
