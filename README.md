@@ -51,17 +51,18 @@ The code snippet below is our first attempt to finding the basic operations requ
     
 To test the two function above you can just run wordladder.py from within the Python shell:
 
-  $ python 
-  >>> import wordladder.py
-  >>> start, end  = 'hit', 'fog' 
-  >>> wl = WordLadder()
-  >>> pattern1 = wl.doMatch('hit','hot')
-  >>> print (pattern1, wl.compare(pattern1))
+    $ python 
+    >>> import wordladder.py
+    >>> start, end  = 'hit', 'fog' 
+    >>> wl = WordLadder()
+    >>> pattern1 = wl.doMatch('hit','hot')
+    >>> print (pattern1, wl.compare(pattern1))
+      *o* True
 
-  >>> pattern2 = wl.doMatch('dot','fog')
-  >>> print (pattern2, wl.compare(pattern2))
+    >>> pattern2 = wl.doMatch('dot','fog')
+    >>> print (pattern2, wl.counts(pattern2))
+      f*g False
 
-  >>> pattern3 = wl.doMatch('hit','hit')
-  >>> print (pattern3, wl.compare(pattern3))
-  
-  
+    >>> pattern3 = wl.doMatch('hit','hit')
+    >>> print (pattern3, wl.counts(pattern3))
+      *** False
