@@ -28,11 +28,11 @@ Before we start lets list a few programming concepts which we shall be applying 
 - Tree search
 - Optimization
 
-### V1. Matching & Comparing
+### v0. Matching & Comparing
 
-The code snippet below is our first attempt to finding the basic operations needed for the task.
+The code snippet below is our first attempt to finding the basic functions (operations) needed for the task.
 
-    # wordladder_v1.py
+    # wordladder_v0.py
     class WordLadder:
         def doMatch(self, wordl, wordr):
             pattern = []
@@ -48,10 +48,10 @@ The code snippet below is our first attempt to finding the basic operations need
     
     dictList = ["lot", "hit", "hot", "log","dog", "dot"]
     
-To test the two function above you can just run wordladder.py from within the Python shell:
+To test the two function we can just import wordladder.py from within the Python shell then call the two methods.
 
     $ python 
-    >>> import wordladder.py
+    >>> import wordladder_v0.py
     >>> start, end  = 'hit', 'fog' 
     >>> wl = WordLadder()
     >>> pattern1 = wl.doMatch('hit','hot')
@@ -66,5 +66,10 @@ To test the two function above you can just run wordladder.py from within the Py
     >>> print (pattern3, wl.counts(pattern3))
       *** False
 
-Note that our pattern matching method returns all matching characters as '\*' and the remaining those taken from the right word - i.e. the word we are trying to transform to). 
+The pattern matching method **doMatch** returns all matching characters as '\*' and the remaining ones from the right word - i.e. the word we are trying to transform to). The **counts** method simply returns *True* when only one character does not match. It does so by counting the number of '\*' in the given pattern.
+
+### v1. Simple Recursion
+
+So far we have not done any search, so lets add this code to our class which not looks as follows:
+
 
