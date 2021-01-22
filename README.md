@@ -33,7 +33,7 @@ Before we start lets list a few programming concepts which we shall be applying 
 
 The code snippet below is our first attempt to finding the basic operations required for the task
 
-    # wordladder.py
+    # wordladder_v1.py
     class WordLadder:
         def doMatch(self, wordl, wordr):
             pattern = []
@@ -44,9 +44,24 @@ The code snippet below is our first attempt to finding the basic operations requ
                     pattern.append (cr)
             return ("".join(pattern))
 
-        def compare(self, pattern):
+        def counts(self, pattern):
             return (len(pattern) - pattern.count('*') == 1)
+    
+    dictList = ["lot", "hit", "hot", "log","dog", "dot"]
+    
+To test the two function above you can just run wordladder.py from within the Python shell:
 
-We can use the above class as follows:
+  $ python 
+  >>> import wordladder.py
+  >>> start, end  = 'hit', 'fog' 
+  >>> wl = WordLadder()
+  >>> pattern1 = wl.doMatch('hit','hot')
+  >>> print (pattern1, wl.compare(pattern1))
 
->> 
+  >>> pattern2 = wl.doMatch('dot','fog')
+  >>> print (pattern2, wl.compare(pattern2))
+
+  >>> pattern3 = wl.doMatch('hit','hit')
+  >>> print (pattern3, wl.compare(pattern3))
+  
+  
