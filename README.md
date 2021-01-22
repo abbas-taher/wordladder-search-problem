@@ -22,14 +22,13 @@ then it takes a minimum of 4 steps to convert the word hit -> fog
 Typically, the solution for this problem utilizes graphs and graph algorithms (https://leetcode.com/problems/word-ladder/). However, in our post we utilize a different approach that is both easier to understand and more elegant to present in a tutorial article.
 
 Before we start lets list a few programming concepts which we shall be applying throughout our discussion.
-
+- Pattern Matching
 - Recursion
 - Backtracking
 - Tree search
-- Pattern Matching
 - Optimization
 
-### Matching & Comparing
+### V1. Matching & Comparing
 
 The code snippet below is our first attempt to finding the basic operations required for the task
 
