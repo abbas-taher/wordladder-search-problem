@@ -11,7 +11,7 @@ In other words we need to find the smallest number of transformations such that 
 
 ### Example
 
-Assuming the following list of 3 letter words being our dictionary  
+Assume a dictionary consisting of the following list of 3 letter words:   
 
     dictList = ["lot", "hit", "hot", "log","dog", "dot"]
 
@@ -21,7 +21,7 @@ then it takes a minimum of 4 steps to convert the word hit -> fog
 
 Typically, the solution for this problem utilizes graphs and graph algorithms (https://leetcode.com/problems/word-ladder/). However, in our post we utilize a different approach that is both easier to understand and more elegant to present in a tutorial article.
 
-Before we start lets list a few programming concepts which we shall be applying throughout our discussion.
+Before we start lets list a few programming concepts which we shall be applying during our discussion.
 - Pattern Matching
 - Recursion
 - Backtracking
@@ -30,7 +30,7 @@ Before we start lets list a few programming concepts which we shall be applying 
 
 ### V1. Matching & Comparing
 
-The code snippet below is our first attempt to finding the basic operations required for the task
+The code snippet below is our first attempt to finding the basic operations needed for the task.
 
     # wordladder_v1.py
     class WordLadder:
@@ -65,3 +65,6 @@ To test the two function above you can just run wordladder.py from within the Py
     >>> pattern3 = wl.doMatch('hit','hit')
     >>> print (pattern3, wl.counts(pattern3))
       *** False
+
+Note that our pattern matching method returns all matching characters as '\*' and the remaining those taken from the right word - i.e. the word we are trying to transform to). 
+
