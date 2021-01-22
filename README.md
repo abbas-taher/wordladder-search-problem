@@ -13,7 +13,7 @@ In other words we need to find the smallest number of transformations such that 
 
 Assume a dictionary consisting of the following list of 3 letter words:   
 
-    dictList = ["lot", "hit", "hot", "log","dog", "dot"]
+    dictList = ['hot','log','dog','dot','lot']
 
 then it takes a minimum of 4 steps to convert the word hit -> fog 
  
@@ -46,7 +46,7 @@ The code snippet below is our first attempt to finding the basic functions (oper
         def counts(self, pattern):
             return (len(pattern) - pattern.count('*') == 1)
     
-    dictList = ["lot", "hit", "hot", "log","dog", "dot"]
+    dictList = ['hot','log','dog','dot','lot']
     
 To test the two function we can just import wordladder.py from within the Python shell then call the two methods.
 
