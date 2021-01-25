@@ -90,9 +90,9 @@ Using the above two functions, we can now write our 1st wordladder algorithm whi
             for word in wordList:
                 pattern = self.doMatch(begin, word)
                 if self.counts(pattern):
-                    remain = wordList[:]
-                    remain.remove(word)
-                    pathlst = self.ladder(word, remain)
+                    remain = wordList[:]                  # make a local copy
+                    remain.remove(word)                   # pop the word 
+                    pathlst = self.ladder(word, remain)   # pass remaining to the next recursive call
                     if pathlst:
                         return ([begin] + pathlst)
             return ([])
@@ -131,16 +131,19 @@ This will produce two paths, one for dictList and other for wordList:
      
 So why is one path longer than the other, even though both lists contain the same set of words? If you look curefully you will see that both lists are ordered differently, in which case the ladder method traverses the search tree along a different path depending on what it sees first at each recursion; thus, returning the first path it reaches to the every end. Of course, this is not good enough because we are interested in finding the shortest path amongst all possible paths.
 
-It is important to note that the recursive algorithm uses backtracking to generate the full path. This is illustrated by the three lines below. Here, if the *pathlist* returned by the recursive call to ladder, is not empty it is concatenated to the begin-word and then returned to the parent call. As a result the full path list is constructed and returned to the first ladder call made by the entry method *find*. 
+It is important to note that the recursive algorithm uses backtracking to generate the full path. This is illustrated by the lines below. Here, if the *pathlist* returned by the recursive call to ladder, is not empty it is concatenated to the begin-word and then returned to the parent call. As a result the full path list gets built and then propagated back to the first ladder called by the *find* method.  
 
-    pathlst = self.ladder(word, remain)
-    if pathlst:
-        return ([begin] + pathlst)
+    if self.counts(pattern):
+        remain = wordList[:]
+        remain.remove(word)   
+        pathlst = self.ladder(word, remain)
+        if pathlst:
+            return ([begin] + pathlst)
 
 
 ### v2. Tree Search: Shortest Path
 
-So far we have not done , so lets add this code to our class which not looks as follows:
+The code below is quite similar to the So far we have not done , so lets add this code to our class which not looks as follows:
 
 ### v3. Tree Pruning
  
