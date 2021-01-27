@@ -148,3 +148,7 @@ The code below is quite similar to the So far we have not done , so lets add thi
 ### v3. Tree Pruning
  
  that reduces the size of decision trees by removing sections of the tree that are non-critical and redundant to classify instances. 
+ 
+### Concluding Remarks
+
+We can clearly see now after this deep dive that search program may look deceivingly simple. The code is both compact and efficient. Understanding how things actually work requires a deeper knowledge of recursive programming, tree search and pruning as well as pattern matching.
