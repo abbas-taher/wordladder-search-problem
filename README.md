@@ -36,7 +36,7 @@ The code snippet below is our first attempt to finding the basic functions (oper
     class WordLadder:
         def doMatch(self, wordl, wordr):
             pattern = []
-            for (cl,cr) in zip(wordl,wordr):
+            for (cl,cr) in zip(wordl, wordr):
                 if cl == cr:
                     pattern.append('*')
                 else:
@@ -66,7 +66,7 @@ To test the two function we can just import wordladder.py from within the Python
     >>> print (pattern3, wl.counts(pattern3))
       *** False
 
-The pattern matching method **doMatch** returns all matching characters as '\*' and the remaining ones from the right word - i.e. the word we are trying to transform to). The **counts** method simply returns *True* when only one character does not match. It does so by counting the number of '\*' in the given pattern.
+The pattern matching method **doMatch** takes two parameters: left and rigth words. It returns all matching characters as '\*' and the remaining ones from the word to the right - i.e. the word we are trying to transform to). The **counts** method simply returns *True* when only one character does not match (is not '\*') in a given pattern. It does so by counting the number of '\*' in the given pattern.
 
 ### v1. Tree Search: Simple Recursion
 
@@ -126,10 +126,21 @@ To execute the code we can just run the wordladder_v1.py program using a call to
 
 This will produce two paths, one for dictList and other for wordList:
 
-     ['hit', 'hot', 'dot', 'dog', 'fog']
-     ['hit', 'hot', 'lot', 'dot', 'dog', 'fog']
+     ['hit', 'hot', 'dot', 'dog', 'fog']           # using dictList
+     ['hit', 'hot', 'lot', 'dot', 'dog', 'fog']    # using wordList
      
-So why is one path longer than the other, even though both lists contain the same set of words? If you look curefully you will see that both lists are ordered differently, in which case the ladder method traverses the search tree along a different path depending on what it sees first at each recursion; thus, returning the first path it reaches to the every end. Of course, this is not good enough because we are interested in finding the shortest path amongst all possible paths.
+So why is one path longer than the other, even though both lists contain the same set of words? If you look curefully you will see that both lists are ordered differently, in which case the ladder method traverses the search tree along a different path depending on what it sees first at each recursion; thus, returning the first path it finds. 
+
+To fully understand this, we need to look at the tree we are trying to search based on the recursion order. For example, for the dictList, the tree below represents the different branches that actually produces a final path. There are other branches that do not, in which case they are not listed here. As you can see the first path is the one printed above and it happens to be the shortest path as well. 
+
+    hit -> hot -> dot -> dog -> fog
+    hit -> hot -> dot -> lot -> log -> dog -> fog
+    hit -> hot -> dot -> log -> dog -> fog
+    hit -> hot -> lot -> log -> fog 
+    hit -> hot -> lot -> log -> dog -> fog 
+    hit -> hot -> lot -> dot -> dog -> fog
+
+When we shuffled the words and use wordList instead, the path found becomes longer. Here, it happens to be the last branch in the above list.
 
 It is important to note that the recursive algorithm uses backtracking to generate the full path. This is illustrated by the lines below. Here, if the *pathlist* returned by the recursive call to ladder, is not empty it is concatenated to the begin-word and then returned to the parent call. As a result the full path list gets built and then propagated back to the first ladder called by the *find* method.  
 
@@ -139,11 +150,11 @@ It is important to note that the recursive algorithm uses backtracking to genera
         pathlst = self.ladder(word, remain)
         if pathlst:
             return ([begin] + pathlst)
-
-
+            
+            
 ### v2. Tree Search: Shortest Path
 
-The code below is quite similar to the So far we have not done , so lets add this code to our class which not looks as follows:
+Of course, the method of returning the first path found while traversing the search tree is not good enough because we are interested in finding the shortest path amongst all possible paths. The code below is quite similar to the one above, but with a few changes in the ladder method:
 
 ### v3. Tree Pruning
  
