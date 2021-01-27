@@ -142,6 +142,8 @@ To fully understand this, we need to look at the tree we are trying to search ba
 
 When we shuffled the words and use wordList instead, the path found becomes longer. Here, it happens to be the last branch in the above list.
 
+#### Backtracking
+
 It is important to note that the recursive algorithm uses backtracking to generate the full path. This is illustrated by the lines below. Here, if the *pathlist* returned by the recursive call to ladder, is not empty it is concatenated to the begin-word and then returned to the parent call. As a result the full path list gets built and then propagated back to the first ladder called by the *find* method.  
 
     if self.counts(pattern):
@@ -149,7 +151,7 @@ It is important to note that the recursive algorithm uses backtracking to genera
         remain.remove(word)   
         pathlst = self.ladder(word, remain)
         if pathlst:
-            return ([begin] + pathlst)
+            return ([begin] + pathlst)        # backtracking happens here
             
             
 ### v2. Tree Search: Shortest Path
