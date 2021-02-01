@@ -178,7 +178,7 @@ Of course, the ladder method above which returns the first path found while trav
             if shortest_path != []:
                 return ([begin] + shortest_path)                                   # return shortest path to the parent 
             else:                                                                  # which called this ladder method
-                return ([])                                                        # return [] bcs loop could'nt find a valid paths
+                return ([])                                                        # return [] bcs loop could'nt find any path
 
 ### v3. Tree Pruning
  
