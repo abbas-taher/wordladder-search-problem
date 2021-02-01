@@ -145,7 +145,8 @@ When we shuffled the words and use wordList instead, the path found becomes long
 #### Backtracking
 
 It is important to note that the recursive algorithm uses backtracking to generate the full path. This is illustrated by the lines below. Here, if the *pathlist* returned by the recursive call to ladder, is not empty it is concatenated to the begin-word and then returned to the parent call. As a result the full path list gets built and then propagated back to the first ladder called by the *find* method.  
-
+    def ladder 
+    ...
     if self.counts(pattern):
         remain = wordList[:]
         remain.remove(word)   
@@ -181,8 +182,79 @@ Of course, the ladder method above which returns the first path found while trav
                 return ([])                                                        # return [] bcs loop could'nt find any path
 
 ### v3. Tree Pruning
- 
- that reduces the size of decision trees by removing sections of the tree that are non-critical and redundant to classify instances. 
+In version 2 of the ladder method we improved the seach to find the shortest path. If you look carefully into the code you see that we are still doing a complete exhustive search of the possible path tree. For small trees this does not pose any problem. However, if the dictionary list is large and the numbers of letters in a word for example is 5 letters the possible paths grows enourmously. To optimse the seach and reduces the size of the trees by removing branches, which is knows as pruning, we need to improve the checking we do in the ladder method but completly rewrite the counts method as a whole. 
+
+    # wordladder_v3.py
+    class WordLadder:
+        def __init__(self, start, end, wordList):
+            self.start = start
+            self.end = end
+            self.wordList = wordList
+
+        def find(self):
+            pathlst = self.ladder(self.start, self.wordList)
+            return (pathlst + [self.end])
+
+        def ladder(self, begin, wordList):
+            pattern = self.doMatch(begin, self.end)
+            if self.counts(pattern) != None:
+                return ([begin])
+
+            wlist = []
+            for word in wordList:
+                wpat = self.doMatch(begin, word)
+                indx = self.counts(wpat)
+                if indx != None:
+                    if wpat[indx] == pattern[indx]:
+                        wlist.insert(0,word)
+                    else:    
+                        wlist.append(word)
+
+            shortest_path = []
+            for word in wlist:
+                pattern = self.doMatch(begin, word)
+                if self.counts(pattern) != None:
+                    remain = wordList[:]
+                    remain.remove(word)
+                    pathlst = self.ladder(word, remain)
+                    if shortest_path == []:
+                        shortest_path = pathlst 
+                    elif pathlst != [] and (len(pathlst) <= len(shortest_path)):
+                        shortest_path = pathlst
+            if shortest_path != []:
+                return ([begin] + shortest_path)
+            else:
+                return ([])
+
+        def doMatch(self, wordl, wordr):
+            pattern = []
+            for (cl,cr) in zip(wordl,wordr):
+                if cl == cr:
+                    pattern.append('*')
+                else:
+                    pattern.append (cr)
+            return ("".join(pattern))
+
+        def counts(self, pattern):
+            # return (len(pattern) - pattern.count('*') == 1)
+            counts = len(pattern) - pattern.count('*') == 1
+            if not counts :
+                return (None)
+            else:
+                for i, c in enumerate(pattern):
+                    if c != '*':
+                        return (i)
+
+    dictList = ['hot','sit','log','dog','dot','lot']
+
+    start, end = 'hit','fog'
+    wl = WordLadder(start,end, dictList)
+    print (wl.find())                       # -> ['hit', 'hot', 'dot', 'dog', 'fog']
+
+    wordList = ['lot','sit','hot','dog','dot','log']  
+    wl = WordLadder(start,end, wordList)
+    print (wl.find())                       # -> ['hit', 'hot', 'lot', 'dot', 'dog', 'fog']
+
  
 ### Concluding Remarks
 
