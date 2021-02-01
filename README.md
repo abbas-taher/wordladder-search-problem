@@ -156,7 +156,28 @@ It is important to note that the recursive algorithm uses backtracking to genera
             
 ### v2. Tree Search: Shortest Path
 
-Of course, the method of returning the first path found while traversing the search tree is not good enough because we are interested in finding the shortest path amongst all possible paths. The code below is quite similar to the one above, but with a few changes in the ladder method:
+Of course, the ladder method above which returns the first path found while traversing the search tree is not good enough because we are interested in finding the shortest path amongst all possible paths. The skeleton of the ladder code below is quite similar to the one shown above, but with an additional tests for the shortest path. Basically, the method checkes if any of the sub paths (tree branches) retuned by its recursive calls is shorter than the one it already has. Onces it checks all subpaths it returns it to the caller or else returns an empty path (because all the sub-branches) could not terminate properly.
+
+    def ladder(self, begin, wordList):
+            pattern = self.doMatch(begin, self.end)
+            if self.counts(pattern):
+                return ([begin])
+
+            shortest_path = []
+            for word in wordList:
+                pattern = self.doMatch(begin, word)
+                if self.counts(pattern):
+                    remain = wordList[:]
+                    remain.remove(word)
+                    pathlst = self.ladder(word, remain)
+                    if shortest_path == []:
+                        shortest_path = pathlst 
+                    elif pathlst != [] and (len(pathlst) <= len(shortest_path)):   # found a new path and it is shorter 
+                        shortest_path = pathlst                                    # reassign as shortest path
+            if shortest_path != []:
+                return ([begin] + shortest_path)                                   # return shortest path to the parent (caller) of this ladder method
+            else:
+                return ([])                                                        # for loop did not find any valid paths
 
 ### v3. Tree Pruning
  
