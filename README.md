@@ -68,9 +68,9 @@ To test the two function we can just import wordladder.py from within the Python
 
 The pattern matching method **doMatch** takes two parameters: left and rigth words. It returns all matching characters as '\*' and the remaining ones from the word to the right - i.e. the word we are trying to transform to). The **counts** method simply returns *True* when only one character does not match (is not '\*') in a given pattern. It does so by counting the number of '\*' in the given pattern.
 
-### v1. Tree Search: Simple Recursion
+### v1. Path Search: Simple Recursion
 
-Using the above two functions, we can now write our 1st wordladder algorithm which is a simple function that takes a begin-word and a list of words and recursively searches for a matching word - i.e a word that is one character different from the begin-word. As show in the code below, the algorithm does not do any special optimization. It just returns the first path it finds.     
+Using the above two functions, we can now write our 1st version of the wordladder algorithm. It consists of a simple ladder function that takes a begin-word and a list of words and recursively searches for a matching word - i.e a word that is one character different from the begin-word at each step. As shown in the code below, the algorithm does not do any special optimization. It just returns the first path it finds.     
 
     # wordladder_v1.py
     class WordLadder:
@@ -129,9 +129,9 @@ This will produce two paths, one for dictList and other for wordList:
      ['hit', 'hot', 'dot', 'dog', 'fog']           # using dictList
      ['hit', 'hot', 'lot', 'dot', 'dog', 'fog']    # using wordList
      
-So why is one path longer than the other, even though both lists contain the same set of words? If you look curefully you will see that both lists are ordered differently, in which case the ladder method traverses the search tree along a different path depending on what it sees first at each recursion; thus, returning the first path it finds. 
+So why is one path longer than the other, even though both lists contain the same set of words? If you look curefully you will see that both lists are ordered differently, in which case the ladder method traverses the path tree along a different path depending on what it sees first at each recursion call. In which case, it returns the first complete path ending with end-word. 
 
-To fully understand this, we need to look at the tree we are trying to search based on the recursion order. For example, for the dictList, the tree below represents the different branches that actually produces a final path. There are other branches that do not, in which case they are not listed here. As you can see the first path is the one printed above and it happens to be the shortest path as well. 
+To fully understand this, lets look at the possible paths (tree) we are trying to search based on the recursion order. For example, for the dictList case, the tree below represents the different branches that actually produces a final path. There are other branches that do not and are not listed here. As you can see the first path is the one printed above and it happens to be the shortest path as well. 
 
     hit -> hot -> dot -> dog -> fog
     hit -> hot -> dot -> lot -> log -> dog -> fog
@@ -182,7 +182,7 @@ Of course, the ladder method above which returns the first path found while trav
                 return ([])                                                        # return [] bcs loop could'nt find any path
 
 ### v3. Tree Pruning
-In version 2 of the ladder method we improved the seach to find the shortest path. If you look carefully into the code you see that we are still doing a complete exhustive search of the possible path tree. For small trees this does not pose any problem. However, if the dictionary list is large and the numbers of letters in a word for example is 5 letters the possible paths grows enourmously. To optimse the seach and reduces the size of the trees by removing branches, which is knows as pruning, we need to improve the checking we do in the ladder method but completly rewrite the counts method as a whole. 
+In version 2 of the ladder method we were able to find the shortest path doing a complete exhustive search of the path tree. For small trees this does not pose any problem. However, if the dictionary list is large and the numbers of letters in a word for example is 5 letters the possible paths grows enourmously. To optimse the seach and reduces the size of the trees by removing branches, which is knows as pruning, we need to improve the checking we do in the ladder method but completly rewrite the counts method as a whole. 
 
     # wordladder_v3.py
     class WordLadder:
