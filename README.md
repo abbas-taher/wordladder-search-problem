@@ -157,7 +157,7 @@ It is important to note that the recursive algorithm uses backtracking to genera
             
 ### v2. Tree Search: Shortest Path
 
-Of course, the ladder method above which returns the first path it finds is not good enough because we are interested in finding the shortest path amongst all possible paths. The skeleton of the ladder code below is quite similar to the one shown above, but with an additional tests for the shortest path. Basically, at any recursion level the method checkes if any of the sub paths (sub levels) retuned a shorter than the one it already has on hand. Onces it checks all subpaths it returns it to the caller or else returns an empty path (because all the sub-branches) could not terminate properly.
+Of course, the ladder method above which returns the first path it finds is not good enough because we are interested in finding the shortest path amongst all possible paths. The skeleton of the ladder code below is quite similar to the one shown above, but with an additional tests for the shortest path. Basically, at any recursion level the method checkes if any of the sub paths (sub levels) retuned a shorter path than the one in hand. Onces all subpaths are checked it returns the shortest one to the caller or returns an empty path, since all the sub-calls did not terminate properly.
     
     # wordladder_v2.py
     def ladder(self, begin, wordList):
@@ -182,7 +182,7 @@ Of course, the ladder method above which returns the first path it finds is not 
                 return ([])                                                        # return [] bcs loop could'nt find any path
 
 ### v3. Tree Pruning
-In version 2 of the ladder method we were able to find the shortest path doing a complete exhustive search of the path tree. For small trees this does not pose any problem. However, if the dictionary list is large and the numbers of letters in a word for example is 5 letters the possible paths grows enourmously. To optimse the seach and reduces the size of the trees by removing branches, which is knows as pruning, we need to improve the checking we do in the ladder method but completly rewrite the counts method as a whole. 
+In version 2 of the ladder method we were able to find the shortest path by doing a complete exhustive search of the path tree. For small cases this does not pose any problem. However, if the dictionary list is large and the numbers of letters in a given word has many letters letters, then possible paths grows exponentially and the program will crash. To optimize the seach and reduces the prune the tree (skipping branches) we need to improve the checking we do in the ladder method and rewrite the counts method as a well. 
 
     # wordladder_v3.py
     class WordLadder:
